@@ -6,8 +6,10 @@ const Header = () => {
   return (
     <>
       <div className={cx("wrapper")}>
-        <div className={cx("header")}>Logo</div>
-        <div className="search">Search</div>
+        <div className={cx("logo")}>UITCinema</div>
+        <div className={cx("search")}>
+          <input type="text" />
+        </div>
         <div className="login">Login</div>
       </div>
     </>

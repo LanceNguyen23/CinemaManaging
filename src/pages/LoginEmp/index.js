@@ -10,12 +10,13 @@ import { connect } from "react-redux";
 import { push } from "react-router-redux";
 import { useNavigation } from "react-router-dom";
 import Header from "~/components/Header";
+import * as actions from "~/store/actions";
+import { employeeLoginSuccess } from "~/store/actions";
 
 const cx = classNames.bind(styles);
 
 const LoginEmp = () => {
-  const dispatch = useDispatch();
-
+  const navigate = useNavigation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -42,8 +43,7 @@ const LoginEmp = () => {
       }
       if (data && data.errCode === 0) {
         setErrMessage("Login succeed");
-        dispatch(sectionSlice.actions.processLogin(data.employee));
-        // navigate("/employee/dashboard");
+        employeeLoginSuccess(data);
       }
     } catch (e) {
       console.log(e.response);
@@ -113,11 +113,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    //   navigate: (path) => dispatch(push(path)),
-    //   adminLoginSuccess: (adminInfo) =>
-    //     dispatch(actions.adminLoginSuccess(adminInfo)),
-    //   adminLoginFail: () => dispatch(actions.adminLoginFail()),
+    navigate: (path) => dispatch(push(path)),
+    // adminLoginSuccess: (adminInfo) =>
+    //   dispatch(actions.adminLoginSuccess(adminInfo)),
+    // adminLoginFail: () => dispatch(actions.adminLoginFail()),
+    employeeLoginSuccess: (employeeInfo) =>
+      dispatch(actions.employeeLoginSuccess(employeeInfo)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(LoginEmp);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginEmp);
