@@ -23,12 +23,11 @@
 // Button style
 .solid {
   color: var(--white);
-  background-color: #5843be;
+  background-color: rgb(83, 11, 209);
   height: 44px;
   width: 180px;
   &:hover {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)),
-      #5843be;
+    background: rgb(83, 11, 209, 0.9);
   }
 }
 

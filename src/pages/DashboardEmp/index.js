@@ -9,6 +9,7 @@ import {
   faCircleXmark,
   faClapperboard,
   faClipboardUser,
+  faEllipsisVertical,
   faFilm,
   faGear,
   faMagnifyingGlass,
@@ -19,6 +20,7 @@ import {
 import Button from "~/components/Button";
 import { faCircleLeft } from "@fortawesome/free-regular-svg-icons";
 import { Pagination } from "@mui/material";
+import { Outlet } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -117,6 +119,7 @@ const DashboardEmp = () => {
                   <th>Producer</th>
                   <th>Premiered</th>
                   <th>Content</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -130,8 +133,14 @@ const DashboardEmp = () => {
                   <td>6000</td>
                   <td>6000</td>
                   <td>6000</td>
+                  <td>
+                    <FontAwesomeIcon
+                      icon={faEllipsisVertical}
+                      className={cx("actions")}
+                    />
+                  </td>
                 </tr>
-                <tr class={cx("active-row")}>
+                <tr className={cx("active-row")}>
                   <td>Melissa</td>
                   <td>5150</td>
                   <td>Melissa</td>
@@ -141,11 +150,14 @@ const DashboardEmp = () => {
                   <td>Melissa</td>
                   <td>5150</td>
                   <td>5150</td>
+                  <td>
+                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                  </td>
                 </tr>
               </tbody>
             </table>
             <div className={cx("pages_container")}>
-              <Pagination count={10} className={cx("pages")} />
+              <Pagination count={10} size="large" />
             </div>
           </div>
         </div>

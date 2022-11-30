@@ -5,18 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { userService } from "~/services";
 import { useDispatch } from "react-redux";
+import { Outlet, useNavigate } from "react-router-dom";
 import sectionSlice from "~/store/slices/sectionSlice";
-import { connect } from "react-redux";
-import { push } from "react-router-redux";
-import { useNavigation } from "react-router-dom";
-import Header from "~/components/Header";
-import * as actions from "~/store/actions";
-import { employeeLoginSuccess } from "~/store/actions";
 
 const cx = classNames.bind(styles);
 
 const LoginEmp = () => {
-  const navigate = useNavigation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -43,7 +39,8 @@ const LoginEmp = () => {
       }
       if (data && data.errCode === 0) {
         setErrMessage("Login succeed");
-        employeeLoginSuccess(data);
+        dispatch(sectionSlice.actions.processLogin(data.employee));
+        navigate("/employee/dashboard");
       }
     } catch (e) {
       console.log(e.response);
@@ -56,70 +53,56 @@ const LoginEmp = () => {
   };
 
   return (
-    <div className={cx("wrapper")}>
-      <div className={cx("container")}>
-        <form>
-          <legend className={cx("title")}>
-            <p className={cx("detail")}>Log in</p>
-          </legend>
-          <div className={cx("email")}>
-            <input
-              type="email"
-              className="form-control"
-              placeholder="E-mail"
-              value={username}
-              onChange={(e) => handleChangeUsername(e)}
-            />
-          </div>
-          <div className={cx("password")}>
-            <input
-              type={isShowPassword ? "text" : "password"}
-              className="form-control"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => handleChangePassword(e)}
-            />
-            <span onClick={handleShowHidePassword}>
-              <FontAwesomeIcon
-                icon={isShowPassword ? faEyeSlash : faEye}
-                className={cx("icon-eye")}
+    <>
+      <Outlet />
+      <div className={cx("wrapper")}>
+        <div className={cx("container")}>
+          <form>
+            <legend className={cx("title")}>
+              <p className={cx("detail")}>Log in</p>
+            </legend>
+            <div className={cx("email")}>
+              <input
+                type="email"
+                className="form-control"
+                placeholder="E-mail"
+                value={username}
+                onChange={(e) => handleChangeUsername(e)}
               />
-            </span>
-          </div>
-          <div className={cx("err-message")}>{errMessage}</div>
-          <button
-            type="button"
-            className={cx("login-btn")}
-            onClick={handleLogin}
-          >
-            Login
-          </button>
-          <div className={cx("wrapper-password-reset")}>
-            <a href="#" className={cx("password-reset")}>
-              Forgot your password?
-            </a>
-          </div>
-        </form>
+            </div>
+            <div className={cx("password")}>
+              <input
+                type={isShowPassword ? "text" : "password"}
+                className="form-control"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => handleChangePassword(e)}
+              />
+              <span onClick={handleShowHidePassword}>
+                <FontAwesomeIcon
+                  icon={isShowPassword ? faEyeSlash : faEye}
+                  className={cx("icon-eye")}
+                />
+              </span>
+            </div>
+            <div className={cx("err-message")}>{errMessage}</div>
+            <button
+              type="button"
+              className={cx("login-btn")}
+              onClick={handleLogin}
+            >
+              Login
+            </button>
+            <div className={cx("wrapper-password-reset")}>
+              <a href="#" className={cx("password-reset")}>
+                Forgot your password?
+              </a>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    lang: state.app.language,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    navigate: (path) => dispatch(push(path)),
-    // adminLoginSuccess: (adminInfo) =>
-    //   dispatch(actions.adminLoginSuccess(adminInfo)),
-    // adminLoginFail: () => dispatch(actions.adminLoginFail()),
-    employeeLoginSuccess: (employeeInfo) =>
-      dispatch(actions.employeeLoginSuccess(employeeInfo)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginEmp);
+export default LoginEmp;

@@ -1,15 +1,27 @@
 //Layouts
+import { Route, Routes } from "react-router-dom";
 import Dashboard from "~/pages/Dashboard";
 import DashboardEmp from "~/pages/DashboardEmp";
 
 import LoginEmp from "~/pages/LoginEmp";
+import ProtectedRoute from "./ProtectedRoute";
 
 // Public routes
-const publicRoutes = [
-  { exact: true, path: "employee/login", component: LoginEmp },
-  { exact: true, path: "dashboard", component: Dashboard },
-];
 
-const privateRoutes = [{ path: "employee/dashboard", component: DashboardEmp }];
+// Private routes
 
-export { publicRoutes, privateRoutes };
+const CreateRoutes = () => {
+  return (
+    <Routes>
+      <Route path="employee" element={<LoginEmp />}>
+        <Route element={<ProtectedRoute />}>
+          <Route path="dashboard" element={<DashboardEmp />} />
+        </Route>
+      </Route>
+
+      {/* <Route path="" element={<LoginEmp />} /> */}
+    </Routes>
+  );
+};
+
+export default CreateRoutes;
