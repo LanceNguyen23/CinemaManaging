@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { userService } from "~/services";
+import { employeeService } from "~/services";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import sectionSlice from "~/store/slices/sectionSlice";
@@ -33,7 +33,7 @@ const LoginEmp = () => {
   const handleLogin = async () => {
     setErrMessage("");
     try {
-      let data = await userService(username, password);
+      let data = await employeeService(username, password);
       if (data && data.errCode !== 0) {
         setErrMessage(data.message);
       }

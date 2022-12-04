@@ -1,10 +1,14 @@
 //Layouts
 import { Route, Routes } from "react-router-dom";
-import Dashboard from "~/pages/Dashboard";
 import DashboardEmp from "~/pages/DashboardEmp";
 
 import LoginEmp from "~/pages/LoginEmp";
 import ProtectedRoute from "./ProtectedRoute";
+import Dashboard from "~/pages/Dashboard";
+import MovieTypePage from "~/pages/MovieTypePage";
+import CastPage from "~/pages/CastPage";
+import DetailFilmPage from "~/pages/DetailFilmPage";
+import DetailFilm from "~/components/DetailFilm";
 
 // Public routes
 
@@ -13,10 +17,13 @@ import ProtectedRoute from "./ProtectedRoute";
 const CreateRoutes = () => {
   return (
     <Routes>
-      <Route path="employee" element={<LoginEmp />}>
-        <Route element={<ProtectedRoute />}>
-          <Route path="dashboard" element={<DashboardEmp />} />
-        </Route>
+      <Route path="/" element={<Dashboard />} />
+      <Route path="movietypePage" element={<MovieTypePage />} />
+      <Route path="castpage" element={<CastPage />} />
+      <Route path="detailfilm/:id" element={<DetailFilmPage />} />
+      <Route path="employee" element={<LoginEmp />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="employee/dashboard" element={<DashboardEmp />} />
       </Route>
 
       {/* <Route path="" element={<LoginEmp />} /> */}

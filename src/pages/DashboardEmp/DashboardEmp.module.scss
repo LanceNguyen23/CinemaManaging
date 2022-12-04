@@ -10,14 +10,14 @@
 }
 .container {
   height: 600px;
-  width: 75%;
+  width: 80%;
   background-color: white;
   border-radius: 20px;
   display: flex;
   flex-direction: row;
 }
 .sidebar {
-  width: 25%;
+  width: 20%;
   background-color: #f6f7f9;
   border-radius: 20px 0px 0 20px;
   height: 100%;
@@ -187,12 +187,15 @@
   height: 80%;
   flex-direction: column;
   justify-content: space-between;
+
   .styled-table {
     border-collapse: collapse;
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    table-layout: fixed;
+    width: 100%;
   }
   .styled-table thead tr {
     background-color: #f6f7f9;
@@ -218,6 +221,13 @@
     font-weight: bold;
     color: #009879;
   }
+
+  .row_table {
+    display: block;
+    max-height: 65px;
+    max-width: 500px;
+    overflow: hidden;
+  }
 }
 
 .pages_container {
@@ -225,7 +235,76 @@
   padding: 30;
   justify-content: center;
 }
+.pagination {
+  display: flex;
+  justify-content: flex-start;
+  list-style: none;
+  cursor: pointer;
+
+  & a {
+    padding: 10px;
+    border: 1px solid rgb(83, 11, 209);
+    color: rgb(83, 11, 209);
+  }
+}
+
+.pagination__link {
+  font-weight: bold;
+}
+.pagination__link--disabled {
+  & a {
+    color: rgb(198, 197, 202);
+    border: 1px solid rgb(198, 197, 202);
+  }
+}
+.pagination__link--active {
+  & a {
+    color: white;
+    background-color: rgb(83, 11, 209);
+  }
+}
 
 .actions {
   cursor: pointer;
+  font-size: 20px;
+}
+
+.action_edit {
+  color: rgb(71, 190, 71);
+}
+
+.action_delete {
+  margin-top: 10px;
+  color: rgb(245, 115, 115);
+}
+
+.modal_edit {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 50px;
+  text-align: center;
+  width: 70%;
+  height: 85%;
+  background-color: rgb(133, 77, 228);
+  border-radius: 20px;
+
+  .titleModal {
+    font-weight: bold;
+    padding-top: 10px;
+    color: rgb(235, 235, 235);
+  }
+
+  .closeIcon {
+    color: rgb(243, 64, 64);
+    background-color: transparent;
+    position: absolute;
+    padding: 10px;
+    font-size: 20px;
+    right: 230px;
+    top: 60px;
+  }
+
+  .inputEdit {
+    display: block;
+  }
 }
